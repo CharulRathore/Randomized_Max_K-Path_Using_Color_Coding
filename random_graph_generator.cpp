@@ -1,6 +1,8 @@
 #include <iostream>
 #include <vector>
 #include <random>
+#include <fstream>
+
 using namespace std;
 
 class GraphGenerator {
@@ -68,6 +70,13 @@ int main() {
     if (graph.empty()) {
         return 0;
     }
+
+    ofstream MyFile("filename.txt");
+    // Write to the file
+    MyFile << "Files can be tricky, but it is fun enough!";
+
+    // Close the file
+    MyFile.close();
 
     printGraph(graph);
 

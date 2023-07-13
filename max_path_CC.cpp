@@ -88,6 +88,7 @@ bool is_color_subset_already_present(scp_triplet & vtrip, int next_v, VCOLOR & v
 
 int main() {
     int k = 4;
+    int runs=0;
     GRAPH graph;
     VCOLOR vcolor;
     createGraph(graph);
@@ -120,6 +121,7 @@ int main() {
                 double e_weight = edge.second;
                 vector<scp_triplet> vscps = vertex_triplets[vertex][h];
                 for (vector<scp_triplet>::iterator sit = vscps.begin(); sit != vscps.end(); sit++) {
+                    runs+=1;
                     if ((int)((*sit).color_subset.size()) != h) {
                         // only consider triplets with color subset size = h no. of vertices
                         continue;
@@ -166,5 +168,6 @@ int main() {
         }
     }
     cout << pmax;
+    cout << "runs: " << runs << endl;
     return 0;
 }
