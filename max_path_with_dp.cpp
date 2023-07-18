@@ -3,9 +3,11 @@
 #include <vector>
 #include <utility>
 #include <iostream>
+#include <chrono>
 #include "graph.h"
 
 using namespace std;
+using namespace std::chrono;
 
 typedef unordered_map<int, unordered_map<int, double>> WEIGHTS_MAP;
 typedef unordered_map<int, unordered_map<int, int>> PREV_VERTICES_MAP;
@@ -64,7 +66,7 @@ unsigned long long int fact(int n) {
 }
 
 int main() {
-    int k = 12;
+    int k = 7;
     string graphInputFile = "./graph_dataset/graph_with_30V_250E.txt";
 
     GraphLib g;
@@ -75,9 +77,10 @@ int main() {
 
     
     GRAPH graph = g.getGraph(); // got an undirected graph
-    
     int global_max = -9999;
 
+    //time START
+    auto start = high_resolution_clock::now();
     for (unsigned long long int i=0; i < 10 * fact(k); i++) {
         // cout << "START" << endl;
         GRAPH dag; 
@@ -95,6 +98,12 @@ int main() {
         }
         cout << i << endl;
     }
+    //time STOP
+    auto stop = high_resolution_clock::now();
+    auto duration = duration_cast<seconds>(stop - start);
+ 
+    cout << "Time taken by function: " << duration.count() << " seconds" << endl;
+
     cout << endl << "maxPath = " << global_max << endl;
     return 0;
 }
