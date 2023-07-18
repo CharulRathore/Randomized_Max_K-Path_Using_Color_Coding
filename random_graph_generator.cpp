@@ -12,6 +12,23 @@ class GraphGenerator {
 public:
     GraphGenerator() : gen(rd()) {}
 
+    void writeMatrixToFile(const vector<vector<int>>& matrix, const string& filePath) {
+        ofstream file(filePath);
+
+        if (file.is_open()) {
+            for (const auto& row : matrix) {
+                for (const auto& element : row) {
+                    file << element << ' ';
+                }
+                file << '\n';
+            }
+            cout << "Matrix written to file: " << filePath << endl;
+            file.close();
+        } else {
+            cerr << "Error writing to file: " << filePath << endl;
+        }
+    }
+
     vector<vector<int>> generateRandomGraph(int numVertices, int numEdges, int weightRangeMin, int weightRangeMax) {
         if (numEdges > numVertices * (numVertices - 1) / 2) {
             cerr << "Invalid number of edges. Maximum possible edges for " << numVertices << " vertices is " << numVertices * (numVertices - 1) / 2 << endl;
@@ -35,6 +52,9 @@ public:
                 edgeCount++;
             }
         }
+        string filename = "graph_with_" + to_string(numVertices) + "V_" + to_string(numEdges) + "E.txt";
+        string filePath = "./graph_dataset/"+ filename;
+        writeMatrixToFile(graph, filePath);
 
         return graph;
     }
